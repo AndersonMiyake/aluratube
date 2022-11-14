@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import ColorModeProvider, { ColorModeContext } from "../src/components/Menu/components/ColorMode";
+import RegisterVideo from "../src/components/RegisterVideo";
 
 const theme = {
     light: {
@@ -32,14 +33,15 @@ function ProviderWrapper(props) {
 // ThemeProvider -> Prover o tema para a app toda
 // ColorModeProvider -> Prove o state de light ou dark mode para todo mundo
 
-function MyApp({ Component, pageProps }) {
-    const context = React.useContext(ColorModeContext);
-    console.log(context.mode);
+function Root({ Component, pageProps }) {
+    const contexto = React.useContext(ColorModeContext);
+    console.log(contexto.mode);
 
     return (
-        <ThemeProvider theme={theme[context.mode]}>
+        <ThemeProvider theme={theme[contexto.mode]}>
             <CSSReset />
             <Component {...pageProps} />
+            <RegisterVideo />
         </ThemeProvider>
     );
 }
@@ -47,7 +49,7 @@ function MyApp({ Component, pageProps }) {
 export default function _App(props) {
     return (
         <ProviderWrapper>
-            <MyApp {...props} />
+            <Root {...props} />
         </ProviderWrapper>
     )
 }
